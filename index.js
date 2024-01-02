@@ -1,9 +1,21 @@
 const express = require('express')
-
+const morgan = require('morgan')
 const app = express()
 
 app.use(express.json())
 
+// create "middleware"
+
+//create a token 
+morgan.token('data', function(req, res) {
+        return JSON.stringify(req.body); 
+});
+
+//custom "tiny"
+app.use(
+    morgan(':method :url :status :res[content-length] - :response-time ms :data', {
+        skip: function(req, res) {return req.method !== 'POST'} // skip if method is not POST
+    }));
 
 let persons = [
     { 
@@ -59,8 +71,6 @@ app.delete('/api/persons/:id', (request, response) => {
     response.status(204).end()
 })
 
-
-  
   app.post('/api/persons', (request, response) => {
 
     const body = request.body
