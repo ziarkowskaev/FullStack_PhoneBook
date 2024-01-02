@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
 
+app.use(express.static('dist'))
 app.use(express.json())
 app.use(cors())
 // create "middleware"
@@ -105,3 +106,4 @@ app.delete('/api/persons/:id', (request, response) => {
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
   })
+
