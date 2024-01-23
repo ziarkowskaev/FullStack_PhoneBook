@@ -2,13 +2,9 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 require('dotenv').config()
-
-
 const Person = require('./models/persons')
-
 app.use(express.static('dist'))
 app.use(express.json())
-
 app.use(cors())
 // create "middleware"
 
@@ -30,9 +26,6 @@ const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
   }
   
-
-let persons = [
-]
 
 //3.18
 app.get('/info', async (request, response) => {
